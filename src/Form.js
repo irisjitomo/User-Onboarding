@@ -35,6 +35,21 @@ const FormComponent = ({ errors, touched, values, status}) => {
                 <span />
                 </label>
                 </div>
+                <div>   
+                    <label>Question 1: Where Did Your Parents Meet?</label><br></br>
+                <Field type = 'password' name='question1' placeholder='Answer this homie' />
+                {touched.question1 && errors.question1 && <p className='error-message'>{errors.question1}</p>}
+                </div>
+                <div>
+                <label>Question 2: What was your first grade teacher's name?</label><br></br>
+                <Field type = 'password' name='question2' placeholder="Answer this homie" />
+                {touched.question2 && errors.question2 && <p className='error-message'>{errors.question2}</p>}
+                </div>
+                <div>
+                <label>Question 3: What is your shoe size?'</label><br></br>
+                <Field type = 'password' name='question3' placeholder='Answer this homie' />
+                {touched.question3 && errors.question3 && <p className='error-message'>{errors.question3}</p>}
+                </div>
 
                 <button type="submit">Submit Form!</button>
             </Form>
@@ -51,19 +66,26 @@ const FormComponent = ({ errors, touched, values, status}) => {
 }
 
 const FormikFormComponent = withFormik({
-    mapPropsToValues({ name, email, password, terms }) {
+    mapPropsToValues({ name, email, password, terms, question1, question2, question3 }) {
         return{
             terms : terms || false,
             name: name || "",
             email : email || "",
-            password : password || ""
+            password : password || "",
+            question1 : question1 || "",
+            question2 : question2 || "",
+            question3 : question3 || ""
+            
         };
     },
 
     validationSchema: Yup.object().shape({
         name: Yup.string().required("Yo fill your name fool!"),
         email: Yup.string().required("Where your email at?"),
-        password: Yup.string().required("Gimme a password bruh")
+        password: Yup.string().required("Gimme a password bruh"),
+        question1: Yup.string().required('You tellin me you dont know where your parents met???'),
+        question2: Yup.string().required("Its been a long time huh?"),
+        question3: Yup.string().required("cmon you gotta know your show size...")
     }),
     handleSubmit(values, {setStatus}){
     axios
