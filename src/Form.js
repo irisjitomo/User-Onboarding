@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { Form, Field, withFormik } from 'formik';
 import axios from "axios";
-import * as Yup from 'yup';
+import * as yup from 'yup';
 
 const FormComponent = ({ errors, touched, values, status}) => {
 
@@ -12,9 +12,12 @@ const FormComponent = ({ errors, touched, values, status}) => {
         }
     }, [status])
 
+    console.log('values', values)
+    console.log('touched', touched)
+
     return(
         <div>
-            <h1>Enter Your Formik Form For a Real One</h1>
+            <h1>Enter Your Formik Form</h1>
             <Form>
                 <div>
                 <Field type="text" name="name" placeholder="enter your name" />
@@ -37,17 +40,17 @@ const FormComponent = ({ errors, touched, values, status}) => {
                 </div>
                 <div>   
                     <label>Question 1: Where Did Your Parents Meet?</label><br></br>
-                <Field type = 'password' name='question1' placeholder='Answer this homie' />
+                <Field type = 'password' name='question1' placeholder='Please Answer' />
                 {touched.question1 && errors.question1 && <p className='error-message'>{errors.question1}</p>}
                 </div>
                 <div>
                 <label>Question 2: What was your first grade teacher's name?</label><br></br>
-                <Field type = 'password' name='question2' placeholder="Answer this homie" />
+                <Field type = 'password' name='question2' placeholder="Please Answer" />
                 {touched.question2 && errors.question2 && <p className='error-message'>{errors.question2}</p>}
                 </div>
                 <div>
                 <label>Question 3: What is your shoe size?'</label><br></br>
-                <Field type = 'password' name='question3' placeholder='Answer this homie' />
+                <Field type = 'password' name='question3' placeholder='Please Answer' />
                 {touched.question3 && errors.question3 && <p className='error-message'>{errors.question3}</p>}
                 </div>
 
@@ -55,7 +58,7 @@ const FormComponent = ({ errors, touched, values, status}) => {
             </Form>
 
             {users.map(user => (
-                <ul>
+                <ul key={user.id}>
                     <li>Name: {user.name}</li>
                     <li>Email: {user.email}</li>
                 </ul>
@@ -79,13 +82,13 @@ const FormikFormComponent = withFormik({
         };
     },
 
-    validationSchema: Yup.object().shape({
-        name: Yup.string().required("Yo fill your name fool!"),
-        email: Yup.string().required("Where your email at?"),
-        password: Yup.string().required("Gimme a password bruh"),
-        question1: Yup.string().required('You tellin me you dont know where your parents met???'),
-        question2: Yup.string().required("Its been a long time huh?"),
-        question3: Yup.string().required("cmon you gotta know your show size...")
+    validationSchema: yup.object().shape({
+        name: yup.string().required("Please Fill in Name Field"),
+        email: yup.string().required("Please Fill in Email Field"),
+        password: yup.string().required("Please Fill in Password Field"),
+        question1: yup.string().required('Please Fill in Question Field'),
+        question2: yup.string().required("Please Fill in Question Field"),
+        question3: yup.string().required("Please Fill in Question Field")
     }),
     handleSubmit(values, {setStatus}){
     axios
